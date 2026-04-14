@@ -1,0 +1,15 @@
+/ {
+    aliases {
+        app-led = &led0;
+    };
+    // i have created  the node led0 
+    // since i am using esp32c3-devkitm, doesn't have a built-int LED, 
+    //mapped with a node named "led0" 
+    leds {
+        compatible = "gpio-leds";
+        led0: led_0  {
+            gpios = <&gpio0 3 GPIO_ACTIVE_HIGH>;
+            label = "User LED";
+        };
+    };
+};
