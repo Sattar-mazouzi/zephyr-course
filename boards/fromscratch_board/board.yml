@@ -1,0 +1,6 @@
+board:
+  name: fromscratch_board
+  full_name: From Scratch Board
+  vendor: Abdesattar
+  socs:
+  - name: esp32c3
