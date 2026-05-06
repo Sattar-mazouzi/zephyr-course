@@ -1,0 +1,3 @@
+config MY_SENSOR
+    bool "My Sensor"
+    
