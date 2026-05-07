@@ -2,6 +2,7 @@
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/sensor.h>
 #include <zephyr/logging/log.h>
+#include "my_sensor.h"
 
 LOG_MODULE_REGISTER(main, LOG_LEVEL_INF);
 
@@ -17,7 +18,7 @@ struct sensor_value val;
 
 int main(void)
 {
-
+    my_sensor_set_brightness(driver, 42);   // Change internal parameter
     while (1) {
 
         // Turn on LED

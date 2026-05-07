@@ -1,12 +1,18 @@
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/sensor.h>
 #include <zephyr/logging/log.h>
+#include "my_sensor.h"
 
 #define DT_DRV_COMPAT my_sensor
 
 // Register the driver with the logging 
 LOG_MODULE_REGISTER(my_sensor, LOG_LEVEL_INF);
 
+struct my_sensor_data {
+    int brightness;   // Example parameter
+};
+
+static struct my_sensor_data my_sensor_data_0;
 
 // Configure LED 
 #define LED_NODE DT_ALIAS(app_led)
@@ -36,7 +42,12 @@ static int my_sensor_sample_fetch(  const struct device *dev,
 			return 0;
 	}
 
-
+void my_sensor_set_brightness(const struct device *dev, int value)
+{
+    struct my_sensor_data *data = dev->data;
+    data->brightness = value;
+    LOG_INF("Brightness set to %d", value);
+}
 
 static DEVICE_API(sensor, my_sensor_api) = {
 	.channel_get = my_sensor_channel_get,
@@ -56,4 +67,4 @@ static int init(const struct device *dev){
     return 0;
 }
 
-DEVICE_DT_INST_DEFINE(0, init, NULL, NULL, NULL, POST_KERNEL, 80, &my_sensor_api);
+DEVICE_DT_INST_DEFINE(0, init, NULL, &my_sensor_data_0, NULL, POST_KERNEL, 80, &my_sensor_api);
